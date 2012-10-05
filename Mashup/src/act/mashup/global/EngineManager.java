@@ -23,39 +23,39 @@ import act.mashup.util.Log;
 
 public class EngineManager {
 
-	/**
-	 *  
-	 */
-	private static final long serialVersionUID = 1L;
+	// 满足可运行状态标记
 	public Map<Integer, Integer> satisfyStatus;
+	// 完成状态标记
 	public Map<Integer, Boolean> doneStatus;
-	private ArrayList<EngineNode> engineNodes;
+	// 中间结果集
 	public Map<Integer, Result> results;
+	// 数据流
 	public ArrayList<Integer> dataFlows;
+	// 模块数组
+	private ArrayList<EngineNode> engineNodes;
 
 	// 私有临时变量
 	private ArrayList<EngineNode> satisfyingNodes;
-	private Method prepareMethod;
-	private Method runMethod;
 	private String outputid;
 
-	/**
-	 * Default constructor.
-	 */
+	// 构造函数
 	public EngineManager() {
-		// TODO Auto-generated constructor stub
+
 		satisfyStatus = new HashMap<Integer, Integer>();
+		// 初始条件：入口为0的节点满足运行条件
+		satisfyStatus.put(0, 1);
+
 		doneStatus = new HashMap<Integer, Boolean>();
-		satisfyStatus.put(0, 1);// 初始条件
-		engineNodes = new ArrayList<EngineNode>();
-		satisfyingNodes = new ArrayList<EngineNode>();
 		results = new HashMap<Integer, Result>();
 		dataFlows = new ArrayList<Integer>();
+
+		engineNodes = new ArrayList<EngineNode>();
+
+		satisfyingNodes = new ArrayList<EngineNode>();
 	}
 
 	// 从XML格式参数构造执行数组
 	public void BuildEngine(String xmlString) {
-		// TODO Auto-generated method stub
 
 		// 临时变量
 		Element figure;
@@ -68,36 +68,33 @@ public class EngineManager {
 		ArrayList attrIns;
 		ArrayList inputs;
 		ArrayList outputs;
-		
 
 		// 从字符串开始解析XML文档
 		StringReader read = new StringReader(xmlString);
-		//Log.logger.debug(xmlString.length()+xmlString);
 		InputSource source = new InputSource(read);
 		SAXBuilder sb = new SAXBuilder();
 
 		try {
+			Log.logger.debug("parse xml request begin.");
 			Document doc = sb.build(source);
 			Element rootElement = doc.getRootElement();
-			outputid=rootElement.getAttributeValue("output").toString().trim();
-			//Log.logger.debug("Parse begin");
-			//Log.logger.debug("Root Element is " + rootElement.toString());
-			List figures = rootElement.getChildren("figure", KV.em);
+			outputid = rootElement.getAttributeValue(KV.EF_OUTPUT).toString().trim();
+			List figures = rootElement.getChildren(KV.EF_FIGURE, KV.em);
+
 			// 对每一个figure进行对象化操作
 			for (Iterator iter = figures.iterator(); iter.hasNext();) {
 				figure = (Element) iter.next();
-				//Log.logger.debug("Figure: " + figure.toString());
 
 				// 获得属性
-				classId = figure.getAttributeValue("classid", KV.gf);
-				dynamic = figure.getAttributeValue("dynamic", KV.gf).trim().equals("1") ? true : false;
-				id = Integer.parseInt(figure.getAttributeValue("id", KV.gf));
+				classId = figure.getAttributeValue(KV.EF_CLASS_ID, KV.gf);
+				dynamic = figure.getAttributeValue(KV.EF_DYNAMIC, KV.gf).trim().equals("1") ? true : false;
+				id = Integer.parseInt(figure.getAttributeValue(KV.EF_ID, KV.gf));
 				doneStatus.put(id, false);
 
 				// 获得属性输入
 				attrIns = new ArrayList<Integer>();
 				if (dynamic == true) {
-					ioputs = figure.getChild("AttributeInput", KV.gf).getChildren("istream", KV.gf);
+					ioputs = figure.getChild(KV.EF_ATTRIBUTE_INPUT, KV.gf).getChildren(KV.EF_ISTREAM, KV.gf);
 					for (Iterator it = ioputs.iterator(); it.hasNext();) {
 						ioput = (Element) it.next();
 						attrIns.add(Integer.parseInt(ioput.getValue().trim()));
@@ -105,10 +102,10 @@ public class EngineManager {
 				}
 
 				// 获得参数
-				paras = figure.getChild("LogicalAttribute", KV.gf);
+				paras = figure.getChild(KV.EF_LOGICAL_ATTRIBUTE, KV.gf);
 
 				// 获得输入
-				ioputs = figure.getChild("interfaces", KV.gf).getChild("inputs", KV.gf).getChildren("input", KV.gf);
+				ioputs = figure.getChild(KV.EF_INTERFACES, KV.gf).getChild(KV.EF_INPUTS, KV.gf).getChildren(KV.EF_INPUT, KV.gf);
 				inputs = new ArrayList<Integer>();
 				for (Iterator it = ioputs.iterator(); it.hasNext();) {
 					ioput = (Element) it.next();
@@ -116,7 +113,7 @@ public class EngineManager {
 				}
 
 				// 获得输出
-				ioputs = figure.getChild("interfaces", KV.gf).getChild("outputs", KV.gf).getChildren("output", KV.gf);
+				ioputs = figure.getChild(KV.EF_INTERFACES, KV.gf).getChild(KV.EF_OUTPUTS, KV.gf).getChildren(KV.EF_OUTPUT, KV.gf);
 				outputs = new ArrayList<Integer>();
 				for (Iterator it = ioputs.iterator(); it.hasNext();) {
 					ioput = (Element) it.next();
@@ -149,7 +146,6 @@ public class EngineManager {
 			// 线程级地运行组件
 			ArrayList<EngineThread> threads = new ArrayList<EngineThread>();
 			for (EngineNode en : satisfyingNodes) {
-
 				EngineThread t = new EngineThread(en, results);
 				threads.add(t);
 				t.start();
@@ -161,27 +157,23 @@ public class EngineManager {
 					t.join();
 					t.updateStatus(satisfyStatus, doneStatus);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Log.logger.fatal(e);
 				}
 			}
 
 		}
-
-		//Log.logger.info("ALL MODULES EXECUTE OVER");
+		Log.logger.debug("All modules have runned.");
 	}
-	
 
-	//获得XML文档
-	public Document GetRlt(){
-		Integer i=Integer.parseInt(outputid);
-		if(i==0)
+	// 获得XML文档
+	public Document GetRlt() {
+		Integer i = Integer.parseInt(outputid);
+		if (i == 0)
 			return GetResult();
 		else
 			return GetResult(i);
 	}
-	
-	
+
 	private Document GetResult() {
 		Document outDoc = new Document();
 		Element rootsElement = new Element("roots");
@@ -192,11 +184,10 @@ public class EngineManager {
 		outDoc.setRootElement(rootsElement);
 		return outDoc;
 	}
-	
 
 	// 从result中生成XML
 	private Document GetResult(Integer i) {
-		
+
 		Document outDoc = new Document();
 		Element rootElement = new Element("root");
 		rootElement.setAttribute("figureid", String.valueOf(i));
@@ -227,20 +218,19 @@ public class EngineManager {
 						String _name = it.next();
 						Element _ele = new Element(_name);
 						Object obj = _item.getValue(_name);
-						if(obj instanceof String) {
+						if (obj instanceof String) {
 							Log.logger.debug("this.is.string");
 							_ele.setText(_item.getValue(_name).toString());
-						}
-						else if(obj instanceof List){
+						} else if (obj instanceof List) {
 							Log.logger.debug("this.is.List");
-							for(Object o:(List)obj){
-								if(o instanceof ImageItem){
-									ImageItem ii=(ImageItem)o;
+							for (Object o : (List) obj) {
+								if (o instanceof ImageItem) {
+									ImageItem ii = (ImageItem) o;
 									Element _elem = ii.toElement();
 									_ele.addContent(_elem);
-								}else if(o instanceof VideoItem){
+								} else if (o instanceof VideoItem) {
 									Log.logger.debug("this.is.video");
-									VideoItem vi=(VideoItem)o;
+									VideoItem vi = (VideoItem) o;
 									Element _elem = vi.toElement();
 									_ele.addContent(_elem);
 								}
@@ -250,12 +240,11 @@ public class EngineManager {
 					}
 					rootElement.addContent(_el);
 				}
-			}
-			else if(this.results.get(i).GetType() == Result.TYPE_MAP){
-				Map<String,String> _itemMap = this.results.get(i).GetResultMap();
+			} else if (this.results.get(i).GetType() == Result.TYPE_MAP) {
+				Map<String, String> _itemMap = this.results.get(i).GetResultMap();
 				Element _el = null;
 				for (String key : _itemMap.keySet()) {
-					_el=new Element("no"+key);
+					_el = new Element("no" + key);
 					_el.setText(_itemMap.get(key));
 					rootElement.addContent(_el);
 				}
