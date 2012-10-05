@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<em:enginemodel xmlns:em="http://www.example.org/EngineModel"
+	xmlns:gf="http://www.example.org/GeneralFigure" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	output="13"
+	xsi:schemaLocation="http://www.example.org/EngineModel EngineModel.xsd http://www.example.org/GeneralFigure GeneralFigure.xsd ">
+
+	<em:figure gf:classid="Filter" gf:dynamic="1" gf:id="6">
+		<gf:AttributeInput>
+			<gf:istream>17</gf:istream>
+			<gf:istream>18</gf:istream>
+		</gf:AttributeInput>
+		<gf:LogicalAttribute>
+			<gf:blockOrPermit>0</gf:blockOrPermit>
+			<gf:anyOrAll>0</gf:anyOrAll>
+			<gf:conditions>
+				<gf:condition>
+					<gf:field>title</gf:field>
+					<gf:relation>0</gf:relation>
+					<gf:key istream="17" />
+				</gf:condition>
+				<gf:condition>
+					<gf:field>description</gf:field>
+					<gf:relation>0</gf:relation>
+					<gf:key istream="18" />
+				</gf:condition>
+			</gf:conditions>
+		</gf:LogicalAttribute>
+		<gf:interfaces>
+			<gf:inputs>
+				<gf:input>10</gf:input>
+			</gf:inputs>
+			<gf:outputs>
+				<gf:output>13</gf:output>
+			</gf:outputs>
+		</gf:interfaces>
+	</em:figure>
+
+</em:enginemodel>

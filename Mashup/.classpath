@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="D:/Servers/tomcat/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="D:/Servers/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="ext/jdom/build/jdom.jar" sourcepath="ext/jdom/src/java">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/Projs/Mashup/ext/jdom/build/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="ext/rome/rome-1.0.jar" sourcepath="ext/rome/rome-1.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Mashup/ext/rome/rome-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="ext/georss/georss-rome-src-0.9.8.jar" sourcepath="ext/georss/georss-rome-src-0.9.8.jar"/>
+	<classpathentry kind="lib" path="ext/htmlparser/lib/htmlparser.jar" sourcepath="ext/htmlparser/src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/Projs/Mashup/ext/htmlparser/docs/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="ext/ikanalyzer/IKAnalyzer3.2.5Stable.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/Projs/Mashup/ext/ikanalyzer/doc3.2.5/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="ext/jaxen/jaxen-1.1.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="ext/log4j/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="ext/HtmlCleaner/htmlcleaner-2.2.jar"/>
+	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/translate-v2"/>
+	<classpathentry kind="lib" path="ext/gson/gson-1.7.1.jar" sourcepath="ext/gson/gson-1.7.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Mashup/ext/gson/gson-1.7.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="ext/weibo4j/commons-codec.jar"/>
+	<classpathentry kind="lib" path="ext/weibo4j/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="ext/weibo4j/commons-logging-1.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/MySQL-connector-java-5.1.jar"/>
+	<classpathentry kind="lib" path="ext/yahoo/signpost-core-1.2.1.1.jar"/>
+	<classpathentry kind="lib" path="ext/yahoo/commons-lang-2.6.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<em:enginemodel xmlns:em="http://www.example.org/EngineModel"
+	xmlns:gf="http://www.example.org/GeneralFigure" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	output="36"
+	xsi:schemaLocation="http://www.example.org/EngineModel EngineModel.xsd http://www.example.org/GeneralFigure GeneralFigure.xsd ">
+	 <em:figure gf:dynamic="0" gf:classid="SinaWeibo" gf:id="7">
+    <gf:AttributeInput/>
+    <gf:LogicalAttribute>
+      <gf:token>cc3628c01b1f3a045040ec003963d9fa/gf:token>
+      <gf:tokenSecret>0d162fd127d0deef5ab3444d0def281f</gf:tokenSecret>
+      <gf:type>1</gf:type>
+    </gf:LogicalAttribute>
+    <gf:interfaces>
+      <gf:inputs>
+        <gf:input>0</gf:input>
+      </gf:inputs>
+      <gf:outputs>
+        <gf:output>11</gf:output>
+      </gf:outputs>
+    </gf:interfaces>
+  </em:figure>
+</em:enginemodel>
+	
+	
+	
+	<em:figure gf:classid="FetchHtml" gf:dynamic="0" gf:id="2">
+		<gf:AttributeInput />
+		<gf:LogicalAttribute>
+			<gf:url>http://www.sina.com.cn/</gf:url>
+			<gf:xPath>/body[@id="body"]/div[@id="page"]/div[@id="PartA"]/div[@class="rightbox"]/div[@class="right"]/div[@class="colpadding"]/div[@id="news"]/span[@id="news_con_1"]/div[@id="newsListTop"]/ul[@id="impoLisTop"]</gf:xPath>
+		</gf:LogicalAttribute>
+		<gf:interfaces>
+			<gf:inputs>
+				<gf:input>0</gf:input>
+			</gf:inputs>
+			<gf:outputs>
+				<gf:output>37</gf:output>
+			</gf:outputs>
+		</gf:interfaces>
+	</em:figure>
+	
+	<em:figure gf:classid="FetchHtml" gf:dynamic="0" gf:id="4">
+		<gf:AttributeInput />
+		<gf:LogicalAttribute>
+			<gf:url>http://www.163.com/</gf:url>
+			<gf:xPath>/body[@id="warpperBody"]/div[@class="content"]/div[@class="area"]/div[@class="area-main"]/div[@class="main-col-10"]/div[@id="news"]/div[@class="bd
+				tab-bd display-control"]/div[@class="tab-con
+				current"]/ul[@class="mod-list main-list dotline"]</gf:xPath>
+		</gf:LogicalAttribute>
+		<gf:interfaces>
+			<gf:inputs>
+				<gf:input>0</gf:input>
+			</gf:inputs>
+			<gf:outputs>
+				<gf:output>38</gf:output>
+			</gf:outputs>
+		</gf:interfaces>
+	</em:figure>
+	
+	<em:figure gf:classid="Merge" gf:dynamic="0" gf:id="24">
+		<gf:AttributeInput />
+		<gf:LogicalAttribute>
+			<gf:removeDuplications>1</gf:removeDuplications>
+		</gf:LogicalAttribute>
+		<gf:interfaces>
+			<gf:inputs>
+				<gf:input>37</gf:input>
+				<gf:input>38</gf:input>
+			</gf:inputs>
+			<gf:outputs>
+				<gf:output>36</gf:output>
+			</gf:outputs>
+		</gf:interfaces>
+	</em:figure>
+	
+	<em:figure gf:classid="ExtractGeo" gf:dynamic="0" gf:id="33">
+		<gf:AttributeInput />
+		<gf:LogicalAttribute>
+			<gf:addUngeoItems>0</gf:addUngeoItems>
+		</gf:LogicalAttribute>
+		<gf:interfaces>
+			<gf:inputs>
+				<gf:input>36</gf:input>
+			</gf:inputs>
+			<gf:outputs>
+				<gf:output>50</gf:output>
+			</gf:outputs>
+		</gf:interfaces>
+	</em:figure>
+</em:enginemodel>
+</em:enginemodel>
