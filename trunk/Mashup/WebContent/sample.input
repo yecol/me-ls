@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<em:enginemodel xmlns:em="http://www.example.org/EngineModel"
+	xmlns:gf="http://www.example.org/GeneralFigure" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" output="6"
+	xsi:schemaLocation="http://www.example.org/EngineModel EngineModel.xsd http://www.example.org/GeneralFigure GeneralFigure.xsd ">
+
+
+	<em:figure gf:classid="FetchHtml" gf:id="2" gf:dynamic="0">
+		<gf:AttributeInput />
+		<gf:LogicalAttribute>
+			<gf:url>
+         http://yecols.cn/blog
+      </gf:url>
+      <gf:xPath>
+         //a
+      </gf:xPath>
+		</gf:LogicalAttribute>
+		<gf:interfaces>
+			<gf:inputs>
+				<gf:input>0</gf:input>
+			</gf:inputs>
+			<gf:outputs>
+				<gf:output>6</gf:output>
+			</gf:outputs>
+		</gf:interfaces>
+	</em:figure>
+
+</em:enginemodel>
+
+
+	<em:figure gf:classid="Filter" gf:id="1" gf:dynamic="0">
+	<gf:AttributeInput/>
+	<gf:LogicalAttribute>
+		<gf:blockOrPermit>1</gf:blockOrPermit>
+		<gf:anyOrAll>1</gf:anyOrAll>
+		<gf:conditions>
+			<gf:condition>
+				<gf:field>description</gf:field>
+				<gf:relation>0</gf:relation>
+				<gf:key>中国</gf:key>
+			</gf:condition>
+			<gf:condition>
+				<gf:field>PublishDate</gf:field>
+				<gf:relation>1</gf:relation>
+				<gf:key>2011</gf:key>
+			</gf:condition>
+		</gf:conditions>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+		<gf:input>6</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>17</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+	
+
+
+
+<em:figure gf:classid="FetchRss" gf:id="1" gf:dynamic="1">
+	<gf:AttributeInput>
+		<gf:istream>13</gf:istream>
+	</gf:AttributeInput>
+	<gf:LogicalAttribute>
+		<gf:url istream="13" />
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs />
+		<gf:outputs>
+			<gf:output>17</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="Filter" gf:id="1" gf:dynamic="1">
+	<gf:AttributeInput>
+		<gf:istream>13</gf:istream>
+	</gf:AttributeInput>
+	<gf:LogicalAttribute>
+		<gf:blockOrPermit>1</gf:blockOrPermit>
+		<gf:anyOrAll>1</gf:anyOrAll>
+		<gf:conditions>
+			<gf:condition>
+				<gf:field>author</gf:field>
+				<gf:relation>0</gf:relation>
+				<gf:key istream="13" />
+			</gf:condition>
+			<gf:condition>
+				<gf:field>PublishDate</gf:field>
+				<gf:relation>1</gf:relation>
+				<gf:key>Mydate</gf:key>
+			</gf:condition>
+		</gf:conditions>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+		<gf:input>16</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>17</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+
+
+
+<em:figure gf:classid="DynamicInput" gf:id="8" gf:dynamic="0">
+	<gf:AttributeInput />
+	<gf:LogicalAttribute>
+		<url>http://rss.sina.com.cn/news/marquee/ddt.xml</url>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs />
+		<gf:outputs>
+			<gf:output>13</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="Join" gf:id="19" gf:dynamic="0">
+	<gf:AttributeInput>
+		<gf:istream>13</gf:istream>
+	</gf:AttributeInput>
+	<gf:LogicalAttribute>
+		<gf:linkBy>author</gf:linkBy>
+		<gf:left>1</gf:left>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>12</gf:input>
+			<gf:input>13</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>17</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="YahooSearch" gf:id="2" gf:dynamic="0">
+	<gf:LogicalAttribute>
+		<gf:AttributeInput />
+		<gf:keyword>搜索字</gf:keyword>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>17</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>10</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+
+<em:figure gf:classid="ExtractGeo" gf:id="2" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:AttributeInput />
+		<gf:addUngeoItems>1</gf:addUngeoItems>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>17</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>10</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+
+<em:figure gf:classid="FetchRss" gf:id="3" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:url>
+			http://rss.news.sohu.com/rss/focus.xml
+		    </gf:url>
+		<gf:url>
+			http://rss.news.sohu.com/rss/focus.xml
+		    </gf:url>
+		<gf:addUngeoItems>0</gf:addUngeoItems>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs />
+		<gf:outputs>
+			<gf:output>11</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="FetchXml" gf:id="4" gf:dynamic="0">
+	<gf:LogicalAttribute>
+		<gf:url>http://www.w3schools.com/xml/cd_catalog.xml</gf:url>
+		<gf:itemRoot>/CATALOG/CD</gf:itemRoot>
+		<gf:itemChildren>
+			<gf:itemChild>TITLE</gf:itemChild>
+			<gf:itemChild>ARTIST</gf:itemChild>
+			<gf:itemChild>PRICE</gf:itemChild>
+		</gf:itemChildren>
+
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs />
+		<gf:outputs>
+			<gf:output>12</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+
+<em:figure gf:classid="Rename" gf:id="7" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:rename>
+			<gf:oldName>
+				TITLE
+			</gf:oldName>
+			<gf:newName>
+				title
+			</gf:newName>
+		</gf:rename>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>12</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>13</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="Merge" gf:id="5" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:removeDuplications>1</gf:removeDuplications>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>10</gf:input>
+			<gf:input>11</gf:input>
+			<gf:input>13</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>14</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="Sort" gf:id="20" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:sort>
+			<gf:sortKey>
+				title
+	        	</gf:sortKey>
+			<gf:sortKind>1</gf:sortKind>
+		</gf:sort>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>14</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>15</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+
+<em:figure gf:classid="Crop" gf:id="8" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:cropLength>10</gf:cropLength>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>15</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>9</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+</em:enginemodel>

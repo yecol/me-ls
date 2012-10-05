@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<display-name>Mashup War</display-name>
+	<description>
+		Welcome to Mashup
+   </description>
+	<servlet>
+		<servlet-name>EngineServlet</servlet-name>
+		<servlet-class>act.mashup.servlet.EngineAssembler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EngineServlet</servlet-name>
+		<url-pattern>/engine</url-pattern>
+	</servlet-mapping>
+
+   <!--  
+	<filter>
+		<filter-name>CharacterEncoding</filter-name>
+		<filter-class>act.mashup.servlet.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	
+</web-app>

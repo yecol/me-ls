@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<em:enginemodel xmlns:em="http://www.example.org/EngineModel"
+	xmlns:gf="http://www.example.org/GeneralFigure" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	output="37"
+	xsi:schemaLocation="http://www.example.org/EngineModel EngineModel.xsd http://www.example.org/GeneralFigure GeneralFigure.xsd ">
+
+<em:figure gf:dynamic="0" gf:classid="FetchRss" gf:id="7">
+    <gf:AttributeInput/>
+    <gf:LogicalAttribute>
+      <gf:url>http://rss.news.sohu.com/rss/pfocus.xml</gf:url>
+    </gf:LogicalAttribute>
+    <gf:interfaces>
+      <gf:inputs>
+        <gf:input>0</gf:input>
+      </gf:inputs>
+      <gf:outputs>
+        <gf:output>36</gf:output>
+      </gf:outputs>
+    </gf:interfaces>
+  </em:figure>
+  
+  
+  <em:figure gf:classid="Crop" gf:id="8" gf:dynamic="1">
+	<gf:LogicalAttribute>
+		<gf:cropLength>4</gf:cropLength>
+	</gf:LogicalAttribute>
+	<gf:interfaces>
+		<gf:inputs>
+			<gf:input>36</gf:input>
+		</gf:inputs>
+		<gf:outputs>
+			<gf:output>9</gf:output>
+		</gf:outputs>
+	</gf:interfaces>
+</em:figure>
+  
+<em:figure gf:dynamic="0" gf:classid="EnrichMedia" gf:id="9">
+    <gf:AttributeInput/>
+    <gf:LogicalAttribute>
+      <gf:relPhotoCount>3</gf:relPhotoCount>
+      <gf:relVideoCount>4</gf:relVideoCount>
+    </gf:LogicalAttribute>
+    <gf:interfaces>
+      <gf:inputs>
+        <gf:input>9</gf:input>
+      </gf:inputs>
+      <gf:outputs>
+        <gf:output>37</gf:output>
+      </gf:outputs>
+    </gf:interfaces>
+  </em:figure>  
+  
+  
+  
+</em:enginemodel>

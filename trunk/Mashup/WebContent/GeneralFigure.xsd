@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/GeneralFigure" xmlns="http://www.example.org/GeneralFigure"
+	elementFormDefault="qualified">
+
+
+	<xs:complexType name="basefigure">
+		<xs:attribute ref="id" use="required" />
+		<xs:attribute ref="classid" use="required" />
+		<xs:attribute ref="dynamic" use="required" />
+	</xs:complexType>
+
+
+
+	<xs:element name="DisplayAttribute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="x"></xs:element>
+				<xs:element ref="y"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="LogicalAttribute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+
+	<xs:element name="interfaces">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="inputs" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="input" minOccurs="0" maxOccurs="unbounded"
+								type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="outputs" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="output" maxOccurs="1" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+
+	<xs:attribute name="id" type="xs:string" />
+	<xs:attribute name="classid" type="xs:string" />
+	<xs:attribute name="dynamic" type="xs:boolean" />
+	<xs:attribute name="istream" type="xs:integer" />
+	<xs:element name="x" type="xs:float" />
+	<xs:element name="y" type="xs:float" />
+	<xs:element name="configOpen" type="xs:boolean" />
+
+	<!-- Parameters -->
+
+	<!-- FetchRSS&GeoRSS -->
+	
+	<xs:element name="url" type="xs:string" />
+	<!-- <xs:element name="url">
+		<xs:complexType>
+			<xs:attribute ref="istream" use="optional" />
+		</xs:complexType>
+	</xs:element> -->
+	
+	<xs:element name="addUngeoItems" type="xs:boolean" />
+
+	<!-- Rename -->
+	<xs:element name="rename">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="oldName" type="xs:string" />
+				<xs:element name="newName" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Sort -->
+	<xs:element name="sort">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="sortKey" type="xs:string" />
+				<xs:element name="sortKind" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Crop -->
+	<xs:element name="cropLength" type="xs:integer" />
+	<xs:element name="removeDuplications" type="xs:boolean" />
+
+	<!-- FetchXML -->
+	<xs:element name="itemRoot" type="xs:string" />
+	<xs:element name="itemChildren">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="itemChild" type="xs:string" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+
+
+	<xs:complexType name="attribute">
+
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" />
+				<xs:attribute name="type" type="xs:string" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+
+</xs:schema>
