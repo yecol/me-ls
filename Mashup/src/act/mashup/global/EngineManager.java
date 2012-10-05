@@ -33,7 +33,6 @@ public class EngineManager {
 	public ArrayList<Integer> dataFlows;
 	// 模块数组
 	private ArrayList<EngineNode> engineNodes;
-
 	// 私有临时变量
 	private ArrayList<EngineNode> satisfyingNodes;
 	private String outputid;
