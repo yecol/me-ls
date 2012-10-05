@@ -46,17 +46,15 @@ public class Item implements Comparable {
 	public int getRank() {
 		return this.rank;
 	}
-	
-	public void rankToMap(){
-		this.KVMap.put("rank", this.rank.toString());
+
+	public void rankToMap() {
+		this.KVMap.put(KV.RANK, this.rank.toString());
 	}
 
 	@Override
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
 		Item other = (Item) o;
 		return other.getRank() - this.rank;
 	}
-	
 
 }

@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.jdom.Element;
 
-import act.mashup.util.Log;
-
 public class EngineNode {
 	private Integer id;
 	private String classId;
@@ -72,7 +70,6 @@ public class EngineNode {
 		else {
 			//Log.logger.debug("stateArray:"+stateArray.toString());
 			
-			//Log.logger.debug("attrIns:"+this.attrIns.toString());
 			boolean singleSatisfy = true;
 			//如果是动态参数输入模块则检测是否准备就绪
 			if(this.isDynamic==true&&this.attrIns.size()!=0){

@@ -2,9 +2,7 @@ package act.mashup.global;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import act.mashup.util.Log;
@@ -22,8 +20,6 @@ public class EngineThread extends Thread {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		// String jndiName=nameString+"/local";
 		// 获得模块名
 		String interfaceName = "act.mashup.module." + en.getClassId();
 
@@ -41,10 +37,8 @@ public class EngineThread extends Thread {
 			Log.logger.fatal(e);
 		} catch (SecurityException e) {
 			Log.logger.fatal(e);
-			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			Log.logger.fatal(e);
-			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			Log.logger.fatal(e);
 		} catch (IllegalArgumentException e) {
@@ -53,7 +47,6 @@ public class EngineThread extends Thread {
 			Log.logger.fatal(e);
 		} catch (InvocationTargetException e) {
 			Log.logger.fatal(e);
-			e.printStackTrace();
 		}
 
 	}
@@ -62,19 +55,16 @@ public class EngineThread extends Thread {
 		
 		doneStatus.put(this.en.getId(), true);
 
-		//System.out.println("test results:" + this.results.toString());
-
 		Iterator<Integer> iterator = en.getOutputs().iterator();
 		while (iterator.hasNext()) {
 			Integer curIndex = iterator.next();
 			// 完全成功时的状态更新(Succeed)
 			if (this.results.get(curIndex).GetStatus() == 1)
 				satisfyStatus.put(curIndex, 1);
-			// 部分成功时的更新(Particial Succeed)
+			// 部分成功时的更新(Partial Succeed)
 			else if (this.results.get(curIndex).GetStatus() == 2)
 				satisfyStatus.put(curIndex, 2);
 		}
-
 	}
 
 }
