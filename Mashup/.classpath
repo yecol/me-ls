@@ -43,5 +43,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/MySQL-connector-java-5.1.jar"/>
 	<classpathentry kind="lib" path="ext/yahoo/signpost-core-1.2.1.1.jar"/>
 	<classpathentry kind="lib" path="ext/yahoo/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="ext/JMS/javax.jms.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
