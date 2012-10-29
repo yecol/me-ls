@@ -138,7 +138,7 @@ public class EngineManager {
 
 	// 运行可执行序列
 	public void RunSequence() {
-		while (doneStatus.containsValue(false) == true) {
+		while (doneStatus.containsValue(false) == true) { 
 			// 更新可执行数组
 			QueryRunnable();
 
