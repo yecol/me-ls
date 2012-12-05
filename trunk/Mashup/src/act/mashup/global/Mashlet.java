@@ -1,12 +1,23 @@
 package act.mashup.global;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.AsyncContext;
+import javax.servlet.ServletResponse;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import act.mashup.util.Log;
 
@@ -48,11 +59,17 @@ public class Mashlet extends Thread implements Comparable {
 	private long prStartTime;// 预测开始时间
 	private long rlStartTime;// 实际开始时间
 
+	private AsyncContext ctx;
+
 	public Mashlet() {
 		super();
 		this.status = STATUE_INITING;
 		this.prStartTime = (new Date()).getTime() + (long) 1000000000000.0;
 		this.setPriority(Thread.MIN_PRIORITY);
+	}
+
+	public void setAsynContext(AsyncContext ctx) {
+		this.ctx = ctx;
 	}
 
 	public int getMashletId() {
@@ -202,12 +219,11 @@ public class Mashlet extends Thread implements Comparable {
 	}
 
 	public void run() {
-		
+
 		this.rlStartTime = (new Date()).getTime();
-		Log.logger.info("Mashlet Time mltid_mpid\t " + this.getMashletId() + "\t" +this.getMashupId()+"\t"+this.rlStartTime);
+		Log.logger.info("Mashlet Time mltid_mpid\t " + this.getMashletId() + "\t" + this.getMashupId() + "\t" + this.rlStartTime);
 
 		// 接受数据流和清理
-		
 
 		// Log.logger.debug("mashlet" + mashletId + " of mashup" + mashupId +
 		// " begin to run");
@@ -258,7 +274,7 @@ public class Mashlet extends Thread implements Comparable {
 				Object obj = c.newInstance();
 				// 运行
 				Method runMethod = c.getDeclaredMethod("run", EngineNode.class, Result.class);
-				runMethod.invoke(obj, en, this.result);
+				runMethod.invoke(obj, en, result);
 
 			} catch (ClassNotFoundException e) {
 				Log.logger.fatal(e);
@@ -292,6 +308,42 @@ public class Mashlet extends Thread implements Comparable {
 
 			// Log.logger.info("Mashup \t i \t Mashup" + mashupId +
 			// " ends execution");
+
+			if (this.ctx != null) {
+				try {
+					System.out.println("hello");
+					System.out.println(result);
+					
+					
+					ServletResponse response = this.ctx.getResponse();
+
+					response.setContentType("text/xml");
+					// 指定响应类型
+					response.setCharacterEncoding("gb2312");
+					PrintWriter out = response.getWriter();
+					// 获得书写器
+					
+					Format format = Format.getCompactFormat();
+					format.setEncoding("gb2312");
+					XMLOutputter outputter = new XMLOutputter(format);
+		
+					outputter.output(this.GetResult(), out);
+					
+					out.flush();
+					out.close();
+					
+					
+					
+					out.println("久等了...XD");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				// 這邊才真正送出回應
+				this.ctx.complete();
+			}
+
 			Date end = new Date();
 			Log.logger.info("Mashup ends \t Mashup" + mashupId + "\t" + String.valueOf(((end.getTime() - startTimes.get(mashupId).getTime()))));
 			setStatus(STATUE_IS_DEAD);
@@ -340,25 +392,25 @@ public class Mashlet extends Thread implements Comparable {
 		// System.out.println("memory size = " + delayMemorySize);
 
 		this.pmt = (int) (delayMemorySize * delayTime);
-//		Log.logger.debug("pmt = \t " + pmt);
-//		if (this.pmt == 0) {
-//			this.setPriority(Thread.MIN_PRIORITY);
-//		}
-//		if (this.pmt > 100000000) {
-//			this.setPriority(3);
-//		}
-//		if (this.pmt > 150000000) {
-//			this.setPriority(5);
-//		}
-//		if (this.pmt > 200000000) {
-//			this.setPriority(7);
-//		}
-//		if (this.pmt > 250000000) {
-//			this.setPriority(9);
-//		}
-//		if (this.pmt > 300000000) {
-//			this.setPriority(Thread.MAX_PRIORITY);
-//		}
+		// Log.logger.debug("pmt = \t " + pmt);
+		// if (this.pmt == 0) {
+		// this.setPriority(Thread.MIN_PRIORITY);
+		// }
+		// if (this.pmt > 100000000) {
+		// this.setPriority(3);
+		// }
+		// if (this.pmt > 150000000) {
+		// this.setPriority(5);
+		// }
+		// if (this.pmt > 200000000) {
+		// this.setPriority(7);
+		// }
+		// if (this.pmt > 250000000) {
+		// this.setPriority(9);
+		// }
+		// if (this.pmt > 300000000) {
+		// this.setPriority(Thread.MAX_PRIORITY);
+		// }
 	}
 
 	// private synchronized void removeMashlet(int mashletId) {
@@ -379,9 +431,8 @@ public class Mashlet extends Thread implements Comparable {
 
 	public int getMemorySize() {
 		// 得到内存尺寸
-		//TODO:
-		return 0;
-		//result.getResultSize();
+		// TODO:
+		return result.getResultSize();
 	}
 
 	@Override
@@ -394,6 +445,73 @@ public class Mashlet extends Thread implements Comparable {
 		// TODO Auto-generated method stub
 		Mashlet other = (Mashlet) o;
 		return other.getPriority() - this.getPriority();
+	}
+	
+	private Document GetResult() {
+
+		Document outDoc = new Document();
+		Element rootElement = new Element("root");
+		rootElement.setAttribute("timestamp", this.result.GetTimeStamp());
+		// 有错误
+		if (this.result.GetStatus() == 0) {
+			rootElement.setAttribute("status", "false");
+			Element errormsg = new Element("errormsg");
+			errormsg.setText(this.result.GetErrorMsg());
+			rootElement.addContent(errormsg);
+		}
+		// 局部有错
+		else if (this.result.GetStatus() == 2) {
+			rootElement.setAttribute("status", "false");
+			Element errormsg = new Element("errormsg");
+			errormsg.setText(this.result.GetErrorMsg());
+			rootElement.addContent(errormsg);
+		}
+		// 完全正确
+		else {
+			rootElement.setAttribute("status", "true");
+			if (this.result.GetType() == Result.TYPE_LIST) {
+				List<Item> _itemList = this.result.GetResultList();
+				Element _el = null;
+				for (Item _item : _itemList) {
+					_el = new Element("item");
+					for (Iterator<String> it = _item.getKeys().iterator(); it.hasNext();) {
+						String _name = it.next();
+						Element _ele = new Element(_name);
+						Object obj = _item.getValue(_name);
+						if (obj instanceof String) {
+							Log.logger.debug("this.is.string");
+							_ele.setText(_item.getValue(_name).toString());
+						} else if (obj instanceof List) {
+							Log.logger.debug("this.is.List");
+							for (Object o : (List) obj) {
+								if (o instanceof ImageItem) {
+									ImageItem ii = (ImageItem) o;
+									Element _elem = ii.toElement();
+									_ele.addContent(_elem);
+								} else if (o instanceof VideoItem) {
+									Log.logger.debug("this.is.video");
+									VideoItem vi = (VideoItem) o;
+									Element _elem = vi.toElement();
+									_ele.addContent(_elem);
+								}
+							}
+						}
+						_el.addContent(_ele);
+					}
+					rootElement.addContent(_el);
+				}
+			} else if (this.result.GetType() == Result.TYPE_MAP) {
+				Map<String, String> _itemMap = this.result.GetResultMap();
+				Element _el = null;
+				for (String key : _itemMap.keySet()) {
+					_el = new Element("no" + key);
+					_el.setText(_itemMap.get(key));
+					rootElement.addContent(_el);
+				}
+			}
+		}
+		outDoc.setRootElement(rootElement);
+		return outDoc;
 	}
 
 }

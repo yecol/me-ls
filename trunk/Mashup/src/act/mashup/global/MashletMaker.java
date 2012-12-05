@@ -118,6 +118,8 @@ public class MashletMaker implements Runnable {
 		Mashlet mashupLetRoot = dfs(root, -1, mashletQueue, queueMap);
 		mashupLetRoot.setBrothers(null);
 		mashupLetRoot.setFinishInit();
+		mashupLetRoot.setAsynContext(ctx);
+		
 		// mashupLetRoot finish
 		setCompleteTime(mashupLetRoot, mashletQueue, queueMap);
 		setDelayTime(mashupLetRoot, mashupLetRoot.getCompleteTime(), mashletQueue, queueMap);
