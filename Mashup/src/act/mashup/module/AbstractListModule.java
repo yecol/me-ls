@@ -61,7 +61,8 @@ public abstract class AbstractListModule {
 	public void run(EngineNode en, Result result) {
 
 		this.en = en;
-		this.result = result;
+		this.rlt = result;
+		//this.result = result;
 		try {
 			Prepare();
 			Execute();
