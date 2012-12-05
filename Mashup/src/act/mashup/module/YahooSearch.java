@@ -19,6 +19,10 @@ public class YahooSearch extends AbstractListModule {
 	public void run(EngineNode en, Map<Integer, Result> results) {
 		super.run(en, results);
 	}
+	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
 
 	@Override
 	protected void Execute() throws Exception {

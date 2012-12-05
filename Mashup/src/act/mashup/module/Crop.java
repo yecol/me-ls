@@ -21,6 +21,10 @@ public class Crop extends AbstractListModule {
 	public void run(EngineNode en, Map<Integer, Result> results) {
 		super.run(en, results);
 	}
+	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
 
 	// 获得输入节点和剪切参数
 	@Override

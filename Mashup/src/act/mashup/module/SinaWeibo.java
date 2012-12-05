@@ -37,6 +37,10 @@ public class SinaWeibo extends AbstractListModule{
 		super.run(en, results);
 	}
 	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
+	
 	@Override
 	protected void Execute() throws Exception {
 		if(type.equals(t_getCommentsTimeline)){

@@ -40,6 +40,10 @@ public class FetchGeoRss extends AbstractListModule {
 	public void run(EngineNode en, Map<Integer, Result> results) {
 		super.run(en, results);
 	}
+	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
 
 	// ¥Ú”°¡–±Ì
 	private void PrintItems() {
