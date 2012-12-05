@@ -38,6 +38,10 @@ public class EnrichMedia extends AbstractListModule {
 	public void run(EngineNode en, Map<Integer, Result> results) {
 		super.run(en, results);
 	}
+	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
 
 	@Override
 	protected void Prepare() throws Exception {

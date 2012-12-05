@@ -19,6 +19,7 @@ public abstract class AbstractListModule {
 	protected Date timeStamp,debugTime;
 	protected List<Item> items;
 	protected Result rlt;
+	protected Result result;
 	protected ArrayList<Integer> dynamicInputs;
 
 	/**
@@ -51,6 +52,32 @@ public abstract class AbstractListModule {
 			while (iterator.hasNext()) {
 				results.put(iterator.next(), rlt);
 			}
+		}
+
+	}
+	
+	
+	// 供Engine调用的方法
+	public void run(EngineNode en, Result result) {
+
+		this.en = en;
+		this.result = result;
+		try {
+			Prepare();
+			Execute();
+			
+			int j=0;
+			for(int i=0;i<200000000;i++){
+				j++;
+			}
+			
+			debugTime = new Date();
+			Log.logger.info(this.en.getClassId() + "\t t \t" + (debugTime.getTime() - timeStamp.getTime()));
+			Log.logger.info(this.en.getClassId() + "\t m \t" + result.getResultSize());
+		} catch (Exception e) {
+			Log.logger.fatal(e);
+			result.ErrorOccur(e.getMessage());
+		} finally {
 		}
 
 	}

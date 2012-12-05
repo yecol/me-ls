@@ -27,6 +27,10 @@ public class Sort extends AbstractListModule {
 	public void run(EngineNode en, Map<Integer, Result> results) {
 		super.run(en, results);
 	}
+	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
 
 	// 获得参数，新建比较器
 	@Override

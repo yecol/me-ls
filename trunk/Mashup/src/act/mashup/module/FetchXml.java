@@ -49,6 +49,10 @@ public class FetchXml extends AbstractListModule {
 	public void run(EngineNode en, Map<Integer, Result> results) {
 		super.run(en, results);
 	}
+	
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
 
 	// 从参数数组中获得参数
 	@Override

@@ -23,10 +23,14 @@ public class Join extends AbstractListModule {
 		super.run(en, results);
 	}
 
+	public void run(EngineNode en, Result result) {
+		super.run(en, result);
+	}
+
 	@Override
 	protected void Prepare() throws Exception {
 		ins = en.getInputs();
-			
+
 		linkByLeft = en.getParas().getChildTextTrim("linkByLeft", KV.gf);
 		linkByRight = en.getParas().getChildTextTrim("linkByRight", KV.gf);
 		left = en.getParas().getChildTextTrim("left", KV.gf);
@@ -36,9 +40,9 @@ public class Join extends AbstractListModule {
 			Integer i = ins.get(0);
 			ins.set(0, ins.get(1));
 			ins.set(1, i);
-			String s=linkByLeft;
-			linkByLeft=linkByRight;
-			linkByRight=s;
+			String s = linkByLeft;
+			linkByLeft = linkByRight;
+			linkByRight = s;
 		}
 	}
 
