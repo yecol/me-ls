@@ -11,8 +11,8 @@ public class EngineNode {
 	private Integer id;
 	private String classId;
 	private Element paras;
-	private final ArrayList<Integer> inputs;
-	private final ArrayList<Integer> outputs;
+	private ArrayList<Integer> inputs;
+	private ArrayList<Integer> outputs;
 	private boolean satisfy;
 	private boolean dynamic;
 	private int averageTime;
@@ -29,6 +29,18 @@ public class EngineNode {
 		this.dynamic = false;
 		this.satisfy = false;
 		this.averageTime = averageTime;
+	}
+	
+	// 构造方法
+	public EngineNode(Integer id, String classId, Element paras, ArrayList<Integer> attrIns,ArrayList<Integer> inputs, ArrayList<Integer> outputs, boolean isDynamic) {
+		super();
+		this.id = id;
+		this.classId = classId;
+		this.paras = paras;
+		this.inputs = inputs;
+		this.outputs = outputs;
+		this.dynamic = isDynamic;
+		this.satisfy = false;
 	}
 
 	// 返回满足与否，并在每次查询满足与否前重新检测
@@ -75,6 +87,15 @@ public class EngineNode {
 
 	public void setContext(AsyncContext context) {
 		this.context = context;
+	}
+	
+
+	public void setInputs(ArrayList<Integer> inputs) {
+		this.inputs = inputs;
+	}
+
+	public void setOutputs(ArrayList<Integer> outputs) {
+		this.outputs = outputs;
 	}
 
 	// 重新检测是否满足运行条件

@@ -17,6 +17,7 @@ public final class KV {
 	public static final String EF_INPUT = "input";
 	public static final String EF_INPUTS = "inputs";
 	public static final String EF_CLASS_ID = "classid";
+	public static final String EF_ROOT = "root";
 	public static final String EF_FIGURE = "figure";
 	public static final String EF_DYNAMIC = "dynamic";
 	public static final String EF_ID = "id";

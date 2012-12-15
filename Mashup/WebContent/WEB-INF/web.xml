@@ -777,6 +777,7 @@ standard deployment descriptor.
   <javaee:description>
 		Welcome to Mashup
    </javaee:description>
+   <!-- 
   <servlet>
     <servlet-name>EngineServlet</servlet-name>
     <servlet-class>act.mashup.servlet.EngineAssembler</servlet-class>
@@ -785,4 +786,5 @@ standard deployment descriptor.
     <servlet-name>EngineServlet</servlet-name>
     <url-pattern>/engine</url-pattern>
   </servlet-mapping>
+   -->
 </web-app>
