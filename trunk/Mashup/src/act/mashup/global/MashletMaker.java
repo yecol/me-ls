@@ -78,7 +78,7 @@ public class MashletMaker implements Runnable {
 				// Integer.parseInt(figure.getAttributeValue("avgt", KV.gf));
 				id = Integer.parseInt(figure.getAttributeValue("id", KV.gf));
 
-				if (figure.getAttributeValue("root", KV.gf) != null && figure.getAttributeValue("root", KV.gf).equals("1")) {
+				if (figure.getAttributeValue(KV.EF_ROOT, KV.gf) != null && figure.getAttributeValue(KV.EF_ROOT, KV.gf).equals("1")) {
 					rootNodeId = id;
 				}
 
