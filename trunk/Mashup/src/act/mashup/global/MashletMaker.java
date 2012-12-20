@@ -49,7 +49,7 @@ public class MashletMaker implements Runnable {
 		Element paras;
 		ArrayList inputs;
 		ArrayList outputs;
-		int rootNodeId = 0;
+		int rootNodeId = 0, rootLocation = 0;
 
 		// HashMap<Integer, Integer> nodeMap = new HashMap<Integer, Integer>();
 
@@ -72,14 +72,14 @@ public class MashletMaker implements Runnable {
 
 				// 获得属性
 				classId = figure.getAttributeValue("classid", KV.gf);
-				// TODO: avgt
-				int averageTime = 100;
-				// int averageTime =
-				// Integer.parseInt(figure.getAttributeValue("avgt", KV.gf));
+
+				int averageTime = HistoricTimer.getInstance().getTime(classId);
+
 				id = Integer.parseInt(figure.getAttributeValue("id", KV.gf));
 
 				if (figure.getAttributeValue(KV.EF_ROOT, KV.gf) != null && figure.getAttributeValue(KV.EF_ROOT, KV.gf).equals("1")) {
 					rootNodeId = id;
+					rootLocation = engineNodes.size();
 				}
 
 				// 获得参数
@@ -112,19 +112,25 @@ public class MashletMaker implements Runnable {
 			Log.logger.fatal(e);
 		}
 
-		System.out.println("yes parsed rootNodeID=" + rootNodeId);
+		ArrayList<EngineNode> curMashup = engineNodes;
+
+		// System.out.println("yes parsed rootNodeID=" + rootNodeId);
+		// Optimizer.sort(curMashup, rootLocation);
 
 		EngineNode root = getEngineNodeById(rootNodeId);
 		Mashlet mashupLetRoot = dfs(root, -1, mashletQueue, queueMap);
 		mashupLetRoot.setBrothers(null);
 		mashupLetRoot.setFinishInit();
 		mashupLetRoot.setAsynContext(ctx);
-		
+
 		// mashupLetRoot finish
 		setCompleteTime(mashupLetRoot, mashletQueue, queueMap);
 		setDelayTime(mashupLetRoot, mashupLetRoot.getCompleteTime(), mashletQueue, queueMap);
 
-		System.out.println("this is mashlets and size is " + mashletQueue.size());
+		Optimizer.sort(curMashup, rootLocation);
+
+		// System.out.println("this is mashlets and size is " +
+		// mashletQueue.size());
 		for (int j = 0; j < mashletQueue.size(); j++) {
 			if (mashletQueue.get(j) != null)
 				System.out.println(mashletQueue.get(j));
@@ -246,13 +252,4 @@ public class MashletMaker implements Runnable {
 		}
 		return null;
 	}
-
-	//
-	// PrintWriter out = ctx.getResponse().getWriter();
-	// out.println("久等了...XD");
-	// // 這邊才真正送出回應
-	// ctx.complete();
-
-	// }
-
 }

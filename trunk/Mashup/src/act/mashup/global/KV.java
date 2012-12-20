@@ -1,5 +1,7 @@
 package act.mashup.global;
 
+import java.util.HashMap;
+
 import org.jdom.Namespace;
 
 public final class KV {
@@ -68,5 +70,6 @@ public final class KV {
 	// Weibo Key
 	public static final String weiboConsumerKey = "3669719157";
 	public static final String weiboConsumerSecret = "930d245d7ed96b95201862cbe27ca5b4";
+		
 
 }
