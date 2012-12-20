@@ -8,12 +8,17 @@ public class Optimizer {
 	 * @param args
 	 */
 
-	int[][] a = { { 0, 1, 1, 1 },// 二维数组a定义四种节点之间的大小关系，下标0，1，2，3分别代表Filter，Sort，
+	static int[][] a = { { 0, 1, 1, 1 },// 二维数组a定义四种节点之间的大小关系，下标0，1，2，3分别代表Filter，Sort，
 			{ 0, 0, 1, 1 },// Clip，GeoTag，a[i][j]=1表示i节点>j节点，a[i][j]=0
 			{ 0, 0, 0, 1 },// 代表不大于；排序时用到；
 			{ 0, 0, 0, 0 } };
+	
+	static void optMashup(ArrayList<EngineNode> mashup, int root){
+		sort(mashup, root);
+	}
+	
 
-	void sort(ArrayList<EngineNode> list, int q) {
+	static void sort(ArrayList<EngineNode> list, int q) {
 		int p, i, j, s, t, m = 0; // 排序的思想是递归的找每个分支的
 		// p=Find(q);
 
@@ -47,7 +52,7 @@ public class Optimizer {
 	}
 
 	// *******************************************************
-	int Fun(String ch)// 将四种节点类型转换成相应的编号
+	static int Fun(String ch)// 将四种节点类型转换成相应的编号
 	{
 		if (ch.contains("Filter"))
 			return 0;
@@ -59,7 +64,7 @@ public class Optimizer {
 	}
 
 	// *******************************************************
-	void Swap(ArrayList<EngineNode> list, int s, int t)
+	static void Swap(ArrayList<EngineNode> list, int s, int t)
 	// 冒泡排序中的交换过程，需注意的是仅需要交换两个节点的input[]和output即可，id和ClassId不用交换
 	{
 		ArrayList<Integer> temp;
@@ -77,7 +82,7 @@ public class Optimizer {
 	}
 
 	// *******************************************************
-	public EngineNode getEngineNodeByOutputId(ArrayList<EngineNode> list, int id) {
+	static EngineNode getEngineNodeByOutputId(ArrayList<EngineNode> list, int id) {
 		// 按输出取节点
 		for (EngineNode e : list) {
 			if (e.getOutputs().get(0) == id) {
